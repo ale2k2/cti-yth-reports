@@ -2,20 +2,7 @@ import csv
 import pandas as pd
 import matplotlib.pyplot as plt
 
-# Replace 'your_file.csv' with the path to your actual CSV file
 file_path = "C:\\Users\\alexb\\Downloads\\YTH Attendance 6.20-8.8 - Check-Ins Report.csv"
-
-#try:
-    #with open(file_path, mode='r', newline='', encoding='utf-8') as file:
-        #reader = csv.reader(file)
-        #for row in reader:
-            # Skip rows with any missing (empty) values
-            #if all(cell.strip() != '' for cell in row):
-                #print(row)
-#except FileNotFoundError:
-    #print(f"File not found: {file_path}")
-#except Exception as e:
-    #print(f"An error occurred: {e}")
 
 # Read CSV
 df = pd.read_csv(file_path)
@@ -35,15 +22,14 @@ even_fridays = pd.date_range(start=start_date, periods=num_weeks, freq='W-FRI')
 x_positions = range(num_weeks)
 
 plt.figure(figsize=(10, 6))
-plt.plot(x_positions, attendance_counts.values, marker='o', linestyle='-')
+plt.bar(x_positions, attendance_counts.values, color='skyblue', edgecolor='black')
 plt.title('Weekly CTI YTH Attendance')
 plt.xlabel('Friday YTH Events')
 plt.ylabel('Number of Attendees')
-plt.grid(True)
+plt.grid(axis='y')
 
 # Replace numeric ticks with our Friday labels
 plt.xticks(ticks=x_positions, labels=[d.strftime('%b %d, %Y') for d in even_fridays], rotation=45)
 
 plt.tight_layout()
 plt.show()
-
