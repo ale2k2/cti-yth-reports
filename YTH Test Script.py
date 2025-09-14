@@ -33,3 +33,21 @@ plt.xticks(ticks=x_positions, labels=[d.strftime('%b %d, %Y') for d in even_frid
 
 plt.tight_layout()
 plt.show()
+
+# Convert attendance columns to boolean
+attendance_bool = df[date_columns].apply(lambda col: col.astype(str).str.lower() == 'true')
+
+# Total events attended per student
+df['TotalAttendance'] = attendance_bool.sum(axis=1)
+
+# Average attendance per grade
+avg_attendance_by_grade = df.groupby('Grade')['TotalAttendance'].mean()
+
+# Plot pie chart
+plt.figure(figsize=(8, 8))
+plt.pie(avg_attendance_by_grade, labels=avg_attendance_by_grade.index,
+        autopct='%1.1f%%', startangle=140, colors=plt.cm.Set3.colors)
+plt.title('Average Weekly Attendance by Grade')
+plt.axis('equal')
+plt.tight_layout()
+plt.show()
