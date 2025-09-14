@@ -26,7 +26,7 @@ date_columns = df.columns[4:]
 # Count attendance per date
 attendance_counts = df[date_columns].apply(lambda col: col.astype(str).str.lower() == 'true').sum()
 
-# Generate evenly spaced Friday labels starting June 20, 2025
+# Generate evenly spaced Friday labels starting July 18, 2025
 start_date = pd.to_datetime('2025-07-18')
 num_weeks = len(date_columns)
 even_fridays = pd.date_range(start=start_date, periods=num_weeks, freq='W-FRI')
